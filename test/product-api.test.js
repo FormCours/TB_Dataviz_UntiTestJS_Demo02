@@ -3,6 +3,7 @@ process.env.NODE_ENV = 'test';
 // Element necessaire pour les tests
 const server = require('../server');
 const db = require('../database');
+const Product = require('../models/product');
 
 // dev-dependencies
 const chai = require('chai');
@@ -17,6 +18,12 @@ chai.use(chaiHttp);
 // Code a lancer avant ou après les tests
 before(() => {
     console.log('Bloc de code executer avant les tests');
+    const newProduct = new Product({
+        _id: '6228be5f4c2ad7387f6410a3',
+        name: 'Aline',
+        price: 100
+    });
+    newProduct.save();
 });
 
 after(() => {
@@ -31,7 +38,38 @@ describe('Route Product', () => {
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                res.body.length.should.be.eql(0);
+                res.body.length.should.be.eql(1);
+                done();
+            });
+    });
+
+    it('Insert', (done) => {
+        const newProduct = {
+            name: 'demo',
+            price: 3.14
+        };
+
+        chai.request(server)
+            .post('/product')
+            .send(newProduct)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.deep.include(newProduct);
+                //console.log(res.body);
+                done();
+            });
+    });
+
+    it('Get By Id', (done) => {
+        console.log('Aline ♥ ');
+        chai.request(server)
+            .get('/product/6228be5f4c2ad7387f6410a3')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.deep.include({name: 'Aline'});
+                console.log(res);
                 done();
             });
     });

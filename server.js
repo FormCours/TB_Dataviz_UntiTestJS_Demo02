@@ -18,11 +18,11 @@ server.use(productRouter);
 const db = require('./database');
 db.connect().then(() => {
     console.log("Connected to MongoDB");
+});
 
-    // Lancement du server
-    server.listen(process.env.PORT, () => {
-        console.log(`Server API up on port ${process.env.PORT} [${process.env.NODE_ENV}]`);
-    });
+// Lancement du server
+server.listen(process.env.PORT, () => {
+    console.log(`Server API up on port ${process.env.PORT} [${process.env.NODE_ENV}]`);
 });
 
 // Export du server API (necessaire pour les tests)
