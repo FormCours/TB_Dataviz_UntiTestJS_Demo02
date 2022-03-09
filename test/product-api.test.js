@@ -62,14 +62,22 @@ describe('Route Product', () => {
     });
 
     it('Get By Id', (done) => {
-        console.log('Aline ♥ ');
         chai.request(server)
             .get('/product/6228be5f4c2ad7387f6410a3')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.should.deep.include({name: 'Aline'});
+                res.body.should.deep.include({ name: 'Aline' });
                 console.log(res);
+                done();
+            });
+    });
+
+    it('Get By Wrong Id', (done) => {
+        chai.request(server)
+            .get('/product/000000000000000000000000')
+            .end((err, res) => {
+                res.should.have.status(404);
                 done();
             });
     });
