@@ -2,7 +2,7 @@ const express = require('express');
 const productRouter = require('./routes/product-router');
 
 // Loading config env
-require('dotenv').config();
+require('dotenv-flow').config();
 
 // Outil pour l'async/await avec express
 require('express-async-errors');

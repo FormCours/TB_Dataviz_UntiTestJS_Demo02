@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 // Element necessaire pour les tests
 const server = require('../server');
 const db = require('../database');
@@ -68,7 +66,7 @@ describe('Route Product', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.deep.include({ name: 'Aline' });
-                console.log(res);
+                //console.log(res.body);
                 done();
             });
     });
