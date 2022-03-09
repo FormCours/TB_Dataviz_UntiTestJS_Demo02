@@ -6,7 +6,7 @@ productRouter.route('/product')
     .get(productController.getAll)
     .post(productController.insert);
 
-productRouter.route('/product/:id([0-9]+)')
+productRouter.route('/product/:id')
     .get(productController.getOne)
     .put(productController.update)
     .delete(productController.delete);
